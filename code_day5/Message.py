@@ -1,6 +1,6 @@
 import datetime #时间日期类
 import hashlib  #信息安全加密解密
-
+from Transaction import Transaction
 
 class DaDaMessage:
     def __init__(self,data):#初始化
@@ -24,6 +24,7 @@ class DaDaMessage:
            raise  InvalidMessage("交易数据与时间被修改"+str(self))
         if self.hash!=self.__hash__message():#判断消息链
             raise InvalidMessage("交易的哈希链被修改"+str(self))
+        return "数据正常"+str(self)
 
 
     def __repr__(self): #返回对象的基本信息
@@ -39,10 +40,15 @@ class InvalidMessage(Exception):#异常类型
 
 if  __name__=="__main__":#单独模块测试
     try:
-        m1= DaDaMessage("zhougl pay 51cto 10 coins")
-        m2= DaDaMessage("zhougl pay debao 20 coins")
-        m3= DaDaMessage("zhougl pay jikexuyuan 30 coins")#交易记录
-        m4= DaDaMessage("zhougl pay jinwei 40 coins")#交易记录
+        t1 = Transaction("zhougl", "debao1", 0.0000001)
+        t2 = Transaction("zhougl", "debao2", 0.0000002)
+        t3 = Transaction("zhougl", "debao3", 0.0000003)
+        t4 = Transaction("zhougl", "debao4", 0.0000004)
+
+        m1= DaDaMessage(t1)
+        m2= DaDaMessage(t2)
+        m3= DaDaMessage(t3)#交易记录
+        m4= DaDaMessage(t4)#交易记录
 
 
         m1.seal()
